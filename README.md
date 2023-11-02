@@ -1,4 +1,9 @@
 # TicTacToe
-A very simple, pretty dumb tictactoe written with ruby.
 
-Note: computer algorithm sucks, makes it impossible for user to lose
+A very simple 2-player tictactoe written in ruby.
+
+## Terminal/Console
+Run tictactoe.rb
+
+``../tic-tac-toe:~$ ruby tictactoe.rb
+``
