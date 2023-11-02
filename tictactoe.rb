@@ -1,5 +1,5 @@
 
-def initview
+def initview #initial view, displays index of each square
     boardinit = Array.new(3) {Array.new(3)}
     s=1
     3.times do |row_index|
@@ -8,7 +8,7 @@ def initview
             s=s+1
         end
     end
-    puts "Based on the following numbers, you will choose the square number you want to complete during the game"
+    puts "Based on the following numbers, you will choose the square number you want to complete during the game. Remember, you play X!"
     boardinit.each { |x|
     puts x.join(" ")
     }
@@ -42,7 +42,7 @@ board = Array.new(3) {Array.new(3)}
 
 
 
-def empty(board)
+def empty(board) #tests if board is empty
     3.times do |row_index|
         3.times do |column_index|
             if board[row_index][column_index].value != "."
@@ -53,7 +53,7 @@ def empty(board)
     return true
 end
 
-def view(board)
+def view(board) #prints out squares
     values = Array.new(3) {Array.new(3)}
     3.times do |row_index|
         3.times do |column_index|
@@ -68,7 +68,7 @@ def view(board)
 end
 
 
-def condition(board)
+def condition(board) #tests if tictactoe winning conditions apply
     if empty(board)
         return false
     else
@@ -98,14 +98,15 @@ def condition(board)
     end
 end
 
-def user_input
+
+def user_input #takes input from user
     puts "Introduce the number of the square and the value you wish to give it"
     a = gets.chomp
     array = a.split(' ')
     array
 end
 
-def error(board)
+def error(board) #error message and continue
     puts "Introduce a proper value or a free square number"
     game_user(board)
 end
@@ -117,8 +118,6 @@ def test(x, val, board) #tests if values/square are ok
         square = board[(x-1)/3][(x-1)%3]
         if val.downcase ==='x' && square.completed == false
             square.put_x
-        # elsif val.downcase === '0' && square.completed == false
-        #     square.put_0
         else
             error(board)
         end
@@ -133,7 +132,7 @@ def game_user(board) #user choice
 end
 
 def game_comp(board) #computer choice
-    puts "Computer is thinking.."
+    puts "Computer is thinking..."
     positions = Array.new() {Array.new()}
     for i in 0..2
         for j in 0..2
@@ -147,7 +146,7 @@ def game_comp(board) #computer choice
     board[elem[0]][elem[1]].put_0
 end
 
-def round(board)
+def round(board) #verifies who's turn it is and who won
     3.times do |row_index|
         3.times do |column_index|
             board[row_index][column_index] = Square.new
@@ -176,7 +175,7 @@ def round(board)
 
 end
 
-def restart(board)
+def restart(board) #restart message
     puts "Play again? (y/n)"
     ans = gets.chomp
     while ans == 'y'
@@ -193,11 +192,5 @@ def game(board)
     restart(board)
 end
 
-# for i in 1..3
-#     game_user(board)
-# end
-
-# puts condition(board)
-# view(board)
 
 game(board)
