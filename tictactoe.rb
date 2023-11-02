@@ -1,5 +1,5 @@
 
-def initview #initial view, displays index of each square
+def initview
     boardinit = Array.new(3) {Array.new(3)}
     s=1
     3.times do |row_index|
@@ -8,7 +8,7 @@ def initview #initial view, displays index of each square
             s=s+1
         end
     end
-    puts "Based on the following numbers, you will choose the square number you want to complete during the game. Remember, you play X!"
+    puts "Based on the following numbers, you will choose the square number you want to complete during the game"
     boardinit.each { |x|
     puts x.join(" ")
     }
@@ -42,7 +42,7 @@ board = Array.new(3) {Array.new(3)}
 
 
 
-def empty(board) #tests if board is empty
+def empty(board)
     3.times do |row_index|
         3.times do |column_index|
             if board[row_index][column_index].value != "."
@@ -53,7 +53,7 @@ def empty(board) #tests if board is empty
     return true
 end
 
-def view(board) #prints out squares
+def view(board)
     values = Array.new(3) {Array.new(3)}
     3.times do |row_index|
         3.times do |column_index|
@@ -68,7 +68,7 @@ def view(board) #prints out squares
 end
 
 
-def condition(board) #tests if tictactoe winning conditions apply
+def condition(board)
     if empty(board)
         return false
     else
@@ -98,55 +98,55 @@ def condition(board) #tests if tictactoe winning conditions apply
     end
 end
 
-
-def user_input #takes input from user
-    puts "Introduce the number of the square and the value you wish to give it"
+def user_input
+    puts "Introduce the number of the square you wish to complete"
     a = gets.chomp
     array = a.split(' ')
     array
 end
 
-def error(board) #error message and continue
+def error(board)
     puts "Introduce a proper value or a free square number"
     game_user(board)
 end
 
-def test(x, val, board) #tests if values/square are ok
+def test(x, board, usr) #tests if values/square are ok
     if(!(1..9).include?(x))
         error(board)
     else
         square = board[(x-1)/3][(x-1)%3]
-        if val.downcase ==='x' && square.completed == false
+        if square.completed == false && usr ==1
             square.put_x
+        elsif usr ==2 && square.completed == false
+            square.put_0
         else
             error(board)
         end
     end
 end
 
-def game_user(board) #user choice
+def game_user(board, usr) #user choice
     arr = user_input
     x = arr[0].to_i
-    val = arr[1].to_str
-    test(x, val, board)
+    test(x, board, usr)
 end
 
-def game_comp(board) #computer choice
-    puts "Computer is thinking..."
-    positions = Array.new() {Array.new()}
-    for i in 0..2
-        for j in 0..2
-            if board[i][j].completed == false
-                positions << [i, j]
-            end
-        end
-    end
+# def game_comp(board) #computer choice
+#     puts "Computer is thinking.."
+#     positions = Array.new() {Array.new()}
+#     for i in 0..2
+#         for j in 0..2
+#             if board[i][j].completed == false
+#                 positions << [i, j]
+#             end
+#         end
+#     end
     
-    elem = positions.sample
-    board[elem[0]][elem[1]].put_0
-end
+#     elem = positions.sample
+#     board[elem[0]][elem[1]].put_0
+# end
 
-def round(board) #verifies who's turn it is and who won
+def round(board)
     3.times do |row_index|
         3.times do |column_index|
             board[row_index][column_index] = Square.new
@@ -155,27 +155,27 @@ def round(board) #verifies who's turn it is and who won
     k=0
     while condition(board) == false
         if(k%2==0)
-            "Your turn:"
-            game_user(board)
+            puts "Player 1's (X) turn:"
+            game_user(board, 1)
             view(board)
             k=k+1
         else
-            "Computer's turn:"
-            game_comp(board)
+            puts "Player 2's (0) turn:"
+            game_user(board, 2)
             view(board)
             k=k+1
         end
     end
 
     if(k%2==0)
-        puts "You lose!"
+        puts "Player2 wins!"
     else
-        puts "You win!"
+        puts "Player1 wins!"
     end
 
 end
 
-def restart(board) #restart message
+def restart(board)
     puts "Play again? (y/n)"
     ans = gets.chomp
     while ans == 'y'
@@ -192,5 +192,11 @@ def game(board)
     restart(board)
 end
 
+# for i in 1..3
+#     game_user(board)
+# end
+
+# puts condition(board)
+# view(board)
 
 game(board)
