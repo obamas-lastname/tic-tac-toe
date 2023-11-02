@@ -131,20 +131,6 @@ def game_user(board, usr) #user choice
     test(x, board, usr)
 end
 
-# def game_comp(board) #computer choice
-#     puts "Computer is thinking.."
-#     positions = Array.new() {Array.new()}
-#     for i in 0..2
-#         for j in 0..2
-#             if board[i][j].completed == false
-#                 positions << [i, j]
-#             end
-#         end
-#     end
-    
-#     elem = positions.sample
-#     board[elem[0]][elem[1]].put_0
-# end
 
 def round(board)
     3.times do |row_index|
@@ -192,11 +178,5 @@ def game(board)
     restart(board)
 end
 
-# for i in 1..3
-#     game_user(board)
-# end
-
-# puts condition(board)
-# view(board)
 
 game(board)
