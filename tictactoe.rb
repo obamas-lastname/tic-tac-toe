@@ -105,14 +105,14 @@ def user_input
     array
 end
 
-def error(board)
+def error(board, usr)
     puts "Introduce a proper value or a free square number"
-    game_user(board)
+    game_user(board, usr)
 end
 
 def test(x, board, usr) #tests if values/square are ok
     if(!(1..9).include?(x))
-        error(board)
+        error(board, usr)
     else
         square = board[(x-1)/3][(x-1)%3]
         if square.completed == false && usr ==1
@@ -120,7 +120,7 @@ def test(x, board, usr) #tests if values/square are ok
         elsif usr ==2 && square.completed == false
             square.put_0
         else
-            error(board)
+            error(board, usr)
         end
     end
 end
